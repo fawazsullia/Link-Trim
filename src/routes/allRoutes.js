@@ -5,12 +5,12 @@ const DNS = require('../models/urls')
 
 
 
-
-router.get("/:inpURL",async(req,res)=>{
+//redirect url
+router.get("/:inptxt",async(req,res)=>{
 
     try{
         const { inputURL } = await DNS.findOne({
-            "inputText": req.params.inpURL
+            "inputText": req.params.inptxt
         }, 'inputURL');
 
         
@@ -37,12 +37,14 @@ router.get("/",async(req,res)=>{
 
 // Create a new URL
 router.post("/url", async (req,res)=>{
-
-    try{
-    const randomstring = nanoid(4);
     const inputURL = req.body.inputURL;
-    const inputText = `${randomstring}-${req.body.inputText}`;
-    const outputText = inputText!== "" ? req.get('host')+"/"+inputText : req.get('host')+"/"+nanoid(10);
+if(!inputURL){
+    res.status(400).send("Input Url is required").end()
+}
+else{
+    const randomstring = nanoid(5);
+    const inputText = req.body.inputText;
+    const outputText = inputText !== "" ? `${req.get('host')}/${inputText}` : `${req.get('host')}/${randomstring}`;
     
 
     const body = {
@@ -51,7 +53,9 @@ router.post("/url", async (req,res)=>{
         "outputText" : outputText
     }
 
-    const newDNS = new DNS(body);
+
+    try{
+        const newDNS = new DNS(body);
 
    await newDNS.save();
    await res.status(201).send(newDNS);    
@@ -60,7 +64,7 @@ router.post("/url", async (req,res)=>{
 catch(e){
         res.status(400).send(e);
     
-}}
+}}}
 )
 
 module.exports = router
