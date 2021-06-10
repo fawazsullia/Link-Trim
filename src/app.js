@@ -12,7 +12,7 @@ require('./db/connection');
 // Assigning Port 
 const port = process.env.PORT || 3000;
 
-//app.use(cors({origin : "https://abhay0809.github.io/Link-Trim/"}))
+app.use(cors({origin : "https://abhay0809.github.io/Link-Trim/"}))
 app.use(express.json())
 
 
