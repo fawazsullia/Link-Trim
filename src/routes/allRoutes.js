@@ -44,7 +44,7 @@ if(!inputURL){
 else{
     const randomstring = nanoid(5);
     const inputText = req.body.inputText;
-    const outputText = inputText !== "" ? `${req.get('host')}/${inputText}` : `${req.get('host')}/${randomstring}`;
+    const outputText = inputText !== "" ? `${linktrim.herokuapp.com}/${inputText}` : `${linktrim.herokuapp.com}/${randomstring}`;
     
 
     const body = {
