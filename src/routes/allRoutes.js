@@ -6,11 +6,11 @@ const DNS = require('../models/urls')
 
 
 //redirect url
-router.get("/:inptxt",async(req,res)=>{
+router.get("/:input",async(req,res)=>{
 
     try{
         const { inputURL } = await DNS.findOne({
-            "inputText": req.params.inptxt
+            "inputText": req.params.input
         }, 'inputURL');
 
         
@@ -44,12 +44,13 @@ if(!inputURL){
 else{
     const randomstring = nanoid(5);
     const inputText = req.body.inputText;
-    const outputText = inputText !== "" ? `${linktrim.herokuapp.com}/${inputText}` : `${linktrim.herokuapp.com}/${randomstring}`;
-    
+    const input = inputText !== "" ? inputText : randomstring
+    const outputText = inputText !== "" ? `linktrim.herokuapp.com/${inputText}` : `linktrim.herokuapp.com/${randomstring}`;
+    console.log(input, outputText, inputText, randomstring)
 
     const body = {
         "inputURL" : inputURL,
-        "inputText" : inputText,
+        "inputText" : input,
         "outputText" : outputText
     }
 
