@@ -45,7 +45,7 @@ else{
     const randomstring = nanoid(5);
     const inputText = req.body.inputText;
     const input = inputText !== "" ? inputText : randomstring
-    const outputText = inputText !== "" ? `linktrim.herokuapp.com/${inputText}` : `linktrim.herokuapp.com/${randomstring}`;
+    const outputText = inputText !== "" ? `https://linktrim.herokuapp.com/${inputText}` : `https://linktrim.herokuapp.com/${randomstring}`;
     console.log(input, outputText, inputText, randomstring)
 
     const body = {
